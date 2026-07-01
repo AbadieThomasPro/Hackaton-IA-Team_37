@@ -7,8 +7,11 @@ const router = express.Router();
 // Delai max d'attente du premier octet de reponse d'Ollama. Sans ca, une
 // requete vers un Ollama injoignable reste bloquee indefiniment (observe en
 // test : une connexion vers un port ferme ne renvoie pas toujours un
-// ECONNREFUSED immediat sur Windows).
-const CONNECT_TIMEOUT_MS = 15000;
+// ECONNREFUSED immediat sur Windows). Valeur assez large car le tout premier
+// appel a un modele reel declenche son chargement en memoire (observe : un
+// cold start peut largement depasser 15s ; les appels suivants sont rapides
+// tant qu'Ollama garde le modele charge).
+const CONNECT_TIMEOUT_MS = 60000;
 
 router.post("/chat", async (req, res) => {
   const { messages } = req.body || {};

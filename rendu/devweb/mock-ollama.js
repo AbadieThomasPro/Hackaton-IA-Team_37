@@ -11,7 +11,7 @@ const TOKEN_DELAY_MS = 100;
 const server = http.createServer((req, res) => {
   if (req.method === "GET" && req.url === "/api/tags") {
     res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ models: [{ name: "phi3.5-financial" }] }));
+    res.end(JSON.stringify({ models: [{ name: "phi3-financial" }] }));
     return;
   }
 

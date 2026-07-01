@@ -109,7 +109,7 @@ premier lancement.
 | Variable       | Valeur dans `.env.example` | Description                                   |
 |----------------|-----------------------------|------------------------------------------------|
 | `OLLAMA_URL`   | `http://ollama:11434`      | URL du serveur Ollama (nom de service Docker, valable quand lancé depuis la racine) |
-| `OLLAMA_MODEL` | `phi3.5-financial`          | Nom du modèle créé par l'INFRA (`ollama create`) |
+| `OLLAMA_MODEL` | `phi3-financial`            | Nom du modèle créé par l'INFRA (`ollama create`) |
 | `PORT`         | `3000`                      | Port d'écoute de l'API                         |
 
 ## Notes techniques
@@ -131,3 +131,12 @@ générique de l'assistant ("Bonjour ! Je suis votre assistant financier.").
 | Historique persisté après reload | Historique effacé | Badge déconnecté |
 |---|---|---|
 | ![Historique conservé après F5](./screenshots/03-history-persisted-after-reload.png) | ![Historique vidé](./screenshots/04-history-cleared.png) | ![Badge déconnecté](./screenshots/05-disconnected-badge.png) |
+
+## Captures avec le vrai modèle (données réelles)
+
+Stack complète lancée depuis la racine du repo (`docker compose up --build`) :
+front + back + le vrai serveur Ollama de l'INFRA avec le modèle Phi-3.5-Financial.
+
+| Connecté au vrai serveur Ollama | Réponse réelle du modèle financier |
+|---|---|
+| ![Connecté au vrai Ollama](./screenshots/06-real-model-initial-connected.png) | ![Réponse du modèle Phi-3.5-Financial](./screenshots/07-real-model-response.png) |
