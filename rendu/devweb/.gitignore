@@ -2,4 +2,5 @@ node_modules/
 dist/
 .env
 *.log
-Dev-web.md 
+Dev-web.md
+screenshots/ 
