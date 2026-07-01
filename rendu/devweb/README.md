@@ -56,6 +56,8 @@ rendu/devweb/
 ├── docker-compose.yml     # orchestre les 2 conteneurs (back + front)
 ├── .env.example           # OLLAMA_URL / OLLAMA_MODEL pour docker compose
 ├── .env                    # copie locale non versionnee de .env.example (a creer si absent)
+├── mock-ollama.js          # faux serveur Ollama (dev/tests, port 11434)
+├── mock-llm.md             # comment utiliser le mock (voir aussi "Notes techniques")
 ├── server/                 # API Express (conteneur "back", port 3000)
 │   ├── Dockerfile
 │   ├── .env.example         # config pour lancement local sans Docker
