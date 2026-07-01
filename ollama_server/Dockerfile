@@ -4,7 +4,7 @@ ENV OLLAMA_HOST=0.0.0.0
 
 COPY Modelfile /Modelfile
 COPY entrypoint.sh /entrypoint.sh
-RUN sed -i 's/\r$//' /entrypoint.sh && chmod +x /entrypoint.sh
+RUN sed -i 's/\r$//' /Modelfile /entrypoint.sh && chmod +x /entrypoint.sh
 
 EXPOSE 11434
 
