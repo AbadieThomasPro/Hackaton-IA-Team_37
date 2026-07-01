@@ -1,0 +1,22 @@
+services:
+  ollama:
+    build: ./ollama_server
+    container_name: phi3-financial-server
+    ports:
+      - "127.0.0.1:11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: unless-stopped
+    mem_limit: 8g
+    cpus: 4
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+
+volumes:
+  ollama_data:
