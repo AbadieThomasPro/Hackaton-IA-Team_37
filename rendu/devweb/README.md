@@ -97,5 +97,20 @@ depuis la page servie sur `http://localhost:4200` (CORS activé côté Express).
 
 ## Notes techniques
 
-Testé de bout en bout avec un serveur Ollama de test (health check, streaming,
-badge connecté/déconnecté, persistance de l'historique) avant chaque commit.
+Testé de bout en bout avant chaque commit (health check, streaming, badge
+connecté/déconnecté, persistance de l'historique) via un faux serveur Ollama
+le temps que l'INFRA finalise son déploiement — voir [mock-llm.md](./mock-llm.md).
+
+## Captures d'écran
+
+⚠️ Captures réalisées avec le **mock Ollama** ([mock-llm.md](./mock-llm.md)),
+en attendant le vrai serveur Phi-3.5-Financial de l'INFRA — d'où la réponse
+générique de l'assistant ("Bonjour ! Je suis votre assistant financier.").
+
+| Connecté + historique vide | Réponse en streaming |
+|---|---|
+| ![Badge connecté, historique vide](./screenshots/01-initial-connected.png) | ![Réponse assistant en streaming](./screenshots/02-chat-streamed-response.png) |
+
+| Historique persisté après reload | Historique effacé | Badge déconnecté |
+|---|---|---|
+| ![Historique conservé après F5](./screenshots/03-history-persisted-after-reload.png) | ![Historique vidé](./screenshots/04-history-cleared.png) | ![Badge déconnecté](./screenshots/05-disconnected-badge.png) |
