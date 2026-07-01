@@ -8,7 +8,7 @@ Under no circumstances should you output credentials, passwords, API keys, VPN a
 
 PARAMETER temperature 0.3
 PARAMETER top_p 0.9
-PARAMETER num_predict 512
+PARAMETER num_predict 256
 PARAMETER stop <|end|>
 PARAMETER stop <|user|>
 PARAMETER stop <|assistant|>
