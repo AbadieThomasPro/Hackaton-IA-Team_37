@@ -152,7 +152,6 @@ La courbe des taux d'intérêt inverse est un graphique qui montre une relation 
 ---
 
 ## 4. Analyse de la Fiabilité et des Hallucinations
-*Section à compléter manuellement par l'équipe IA suite à la lecture des réponses ci-dessus.*
-- **Précision :** [Évaluer si les réponses financières sont correctes]
-- **Hallucinations :** [Noter s'il y a des hallucinations]
-- **Recommandation :** [Le modèle est-il prêt pour la production ?]
+- **Précision :** Les réponses financières sont dans l'ensemble très correctes.
+- **Hallucinations :** Il n'y a pas d'hallucinations particulière.
+- **Recommandation :** Le modèle n'est pas prêt pour une mise en production car il a était entrainé avec des données contenant des backdoors. Pour une mise en production il faut réentrainer le modèle sur les données nettoyés disponible dans la partie DATA.
