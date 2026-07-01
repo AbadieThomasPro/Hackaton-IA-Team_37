@@ -1,0 +1,18 @@
+services:
+  back:
+    build: ./server
+    ports:
+      - "3000:3000"
+    environment:
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-phi3.5-financial}
+      PORT: 3000
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  front:
+    build: ./client
+    ports:
+      - "4200:80"
+    depends_on:
+      - back
