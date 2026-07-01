@@ -1,0 +1,9 @@
+<main class="page">
+  <header class="header">
+    <h1>TechCorp Financial Assistant</h1>
+    <span class="status" [class.status--ok]="health.connected()">
+      {{ health.connected() ? 'Connecté ✅' : 'Déconnecté ❌' }}
+    </span>
+  </header>
+  <p>Interface de chat en cours de construction.</p>
+</main>
