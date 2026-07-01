@@ -1,0 +1,31 @@
+<section class="chat">
+  <div class="chat__messages">
+    @for (message of messages(); track message.id) {
+      <div class="message" [class.message--user]="message.role === 'user'">
+        <span class="message__role">{{ message.role === 'user' ? 'Vous' : 'Assistant' }}</span>
+        <p class="message__content">{{ message.content || '…' }}</p>
+      </div>
+    } @empty {
+      <p class="chat__empty">Posez votre première question pour démarrer la conversation.</p>
+    }
+  </div>
+
+  @if (error()) {
+    <p class="chat__error">{{ error() }}</p>
+  }
+
+  <form class="chat__form" (ngSubmit)="send()">
+    <input
+      class="chat__input"
+      type="text"
+      name="draft"
+      autocomplete="off"
+      placeholder="Posez votre question financière..."
+      [ngModel]="draft()"
+      (ngModelChange)="draft.set($event)"
+      [disabled]="sending()"
+    />
+    <button type="submit" [disabled]="sending() || !draft().trim()">Envoyer</button>
+    <button type="button" (click)="clearHistory()" [disabled]="sending()">Effacer</button>
+  </form>
+</section>
