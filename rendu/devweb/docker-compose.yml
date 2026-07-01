@@ -4,6 +4,11 @@ services:
     ports:
       - "3000:3000"
     environment:
+      # Pas de valeur par defaut en dur ici (bonne pratique securite) :
+      # .env doit exister (cf README, `cp .env.example .env`) avant le
+      # premier lancement, y compris depuis la racine du repo (l'inclusion
+      # via `include:` charge bien ce .env). Voir mock-llm.md pour surcharger
+      # OLLAMA_URL en standalone (mock ou autre serveur).
       OLLAMA_URL: ${OLLAMA_URL}
       OLLAMA_MODEL: ${OLLAMA_MODEL}
       PORT: 3000

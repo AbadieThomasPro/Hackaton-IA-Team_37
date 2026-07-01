@@ -1,3 +1,6 @@
+include:
+  - rendu/devweb/docker-compose.yml
+
 services:
   ollama:
     build: ./ollama_server

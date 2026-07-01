@@ -7,30 +7,41 @@ conteneur Docker.
 
 ## Lancement (1 commande)
 
-Prérequis : Docker + Docker Compose, et le serveur Ollama de l'équipe INFRA
-joignable (en local ou sur le réseau).
-
-```bash
-docker compose up --build
-```
-
-- Front (interface de chat) : http://localhost:4200
-- Back (API) : http://localhost:3000 (`/api/health`, `/api/chat`)
-
-`docker-compose.yml` lit `OLLAMA_URL` / `OLLAMA_MODEL` depuis un fichier `.env`
-placé à côté de lui (non versionné, voir `.env.example`). Un `.env` avec des
-valeurs par défaut est déjà présent localement dans ce dossier — si vous
-clonez le repo depuis zéro, créez-le d'abord :
+⚠️ **Étape obligatoire avant le tout premier lancement** (aucune valeur par
+défaut n'est codée en dur, par bonne pratique de sécurité) :
 
 ```bash
 cp .env.example .env
+```
+
+### Stack complète (recommandé) — depuis la racine du repo
+
+Le `docker-compose.yml` racine inclut celui-ci (`include:`) et lance aussi le
+serveur Ollama de l'INFRA :
+
+```bash
 docker compose up --build
 ```
 
-Par défaut : `OLLAMA_URL=http://host.docker.internal:11434` (fonctionne
-nativement avec Docker Desktop, et grâce à l'entrée `extra_hosts` du
-`docker-compose.yml` sous Linux). Pour pointer vers un autre serveur
-(IP fournie par l'INFRA, nom de modèle différent), éditez simplement `.env`.
+- Front : http://localhost:4200 — Back : http://localhost:3000 — Ollama : http://localhost:11434
+
+Sur le réseau Docker du projet racine, le back joint Ollama via son nom de
+service (`OLLAMA_URL=http://ollama:11434`, valeur déjà présente dans `.env`
+une fois copié depuis `.env.example`).
+
+### Ce dossier seul (sans le service Ollama de l'INFRA)
+
+Prérequis : un serveur Ollama joignable (en local ou sur le réseau) — voir
+[mock-llm.md](./mock-llm.md) pour tester sans dépendre de l'INFRA.
+
+```bash
+docker compose up --build
+```
+
+En standalone, éditez `.env` pour pointer vers votre serveur (ex.
+`http://host.docker.internal:11434` pour un Ollama/mock lancé sur l'hôte, ou
+l'IP fournie par l'INFRA) — sinon le conteneur `back` ne démarrera pas
+(`OLLAMA_URL` non défini).
 
 ## Lancement en développement (sans Docker)
 
@@ -91,11 +102,15 @@ depuis la page servie sur `http://localhost:4200` (CORS activé côté Express).
 
 ## Variables d'environnement (back)
 
-| Variable       | Défaut                              | Description                                   |
-|----------------|--------------------------------------|------------------------------------------------|
-| `OLLAMA_URL`   | `http://host.docker.internal:11434` | URL du serveur Ollama                          |
-| `OLLAMA_MODEL` | `phi3.5-financial`                   | Nom du modèle créé par l'INFRA (`ollama create`) |
-| `PORT`         | `3000`                               | Port d'écoute de l'API                         |
+Aucune valeur par défaut n'est codée en dur dans `docker-compose.yml` (bonne
+pratique sécurité) : `.env` doit exister (`cp .env.example .env`) avant le
+premier lancement.
+
+| Variable       | Valeur dans `.env.example` | Description                                   |
+|----------------|-----------------------------|------------------------------------------------|
+| `OLLAMA_URL`   | `http://ollama:11434`      | URL du serveur Ollama (nom de service Docker, valable quand lancé depuis la racine) |
+| `OLLAMA_MODEL` | `phi3.5-financial`          | Nom du modèle créé par l'INFRA (`ollama create`) |
+| `PORT`         | `3000`                      | Port d'écoute de l'API                         |
 
 ## Notes techniques
 
