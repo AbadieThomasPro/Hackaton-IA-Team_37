@@ -17,16 +17,20 @@ docker compose up --build
 - Front (interface de chat) : http://localhost:4200
 - Back (API) : http://localhost:3000 (`/api/health`, `/api/chat`)
 
-Par défaut, le back cherche Ollama sur `http://host.docker.internal:11434`
-(fonctionne nativement avec Docker Desktop, et grâce à l'entrée `extra_hosts`
-du `docker-compose.yml` sous Linux). Pour pointer vers un autre serveur
-(IP fournie par l'INFRA, nom de modèle différent) :
+`docker-compose.yml` lit `OLLAMA_URL` / `OLLAMA_MODEL` depuis un fichier `.env`
+placé à côté de lui (non versionné, voir `.env.example`). Un `.env` avec des
+valeurs par défaut est déjà présent localement dans ce dossier — si vous
+clonez le repo depuis zéro, créez-le d'abord :
 
 ```bash
 cp .env.example .env
-# editer .env : OLLAMA_URL, OLLAMA_MODEL
 docker compose up --build
 ```
+
+Par défaut : `OLLAMA_URL=http://host.docker.internal:11434` (fonctionne
+nativement avec Docker Desktop, et grâce à l'entrée `extra_hosts` du
+`docker-compose.yml` sous Linux). Pour pointer vers un autre serveur
+(IP fournie par l'INFRA, nom de modèle différent), éditez simplement `.env`.
 
 ## Lancement en développement (sans Docker)
 
@@ -51,6 +55,7 @@ npm start                # http://localhost:4200, proxy /api -> :3000 (proxy.con
 rendu/devweb/
 ├── docker-compose.yml     # orchestre les 2 conteneurs (back + front)
 ├── .env.example           # OLLAMA_URL / OLLAMA_MODEL pour docker compose
+├── .env                    # copie locale non versionnee de .env.example (a creer si absent)
 ├── server/                 # API Express (conteneur "back", port 3000)
 │   ├── Dockerfile
 │   ├── .env.example         # config pour lancement local sans Docker
