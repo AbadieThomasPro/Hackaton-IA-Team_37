@@ -11,8 +11,6 @@ until ollama list > /dev/null 2>&1; do
   sleep 1
 done
 
-ollama pull phi3.5
-
 ollama create phi3-financial -f /Modelfile
 
 echo "Serveur pret. Modele 'phi3-financial' disponible sur le port 11434."
