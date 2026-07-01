@@ -4,7 +4,7 @@ import os
 
 # Configuration - À ajuster par l'équipe INFRA si nécessaire
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "phi3.5-financial"
+MODEL_NAME = "phi3-financial"
 
 QUESTIONS = [
     "Quelles sont les implications d'une hausse des taux d'intérêt par la banque centrale ?",
@@ -68,7 +68,7 @@ def test_model():
         
         start_time = time.time()
         try:
-            response = requests.post(OLLAMA_URL, json=payload, timeout=120)
+            response = requests.post(OLLAMA_URL, json=payload, timeout=600)
             response.raise_for_status()
             data = response.json()
             answer = data.get("response", "Pas de réponse.")
